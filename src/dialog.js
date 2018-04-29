@@ -1,6 +1,6 @@
 import $ from 'jquery'
 
-class Dialog {
+export default class Dialog {
     constructor (){
         let rnd = Math.random().toString().replace('.', '')
         this.id = 'dialog_' + rnd;
@@ -50,13 +50,14 @@ class Dialog {
         var move;
         //在某些浏览器里，如微信旧版本的iphone5s会出现闪一下就消失
         // $(obj).on('click', click);
-
-        function click(e) {
-            return fn.call(this, e);
-        }
+        //
+        // function click(e) {
+        //     return fn.call(this, e);
+        // }
 
         $(obj).on('touchmove', function(e) {
             move = true;
+            console.log(e)
         }).on('touchend', function(e) {
             e.preventDefault();
             if(!move) {
