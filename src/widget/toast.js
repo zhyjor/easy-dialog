@@ -1,6 +1,14 @@
 import Dialog from '../dialog'
 import $ from 'jquery'
 
+/**
+ * 最普通的toast
+ *
+ * @param content 提醒内容
+ * @param timer 倒计时，使用ms
+ * @param callback
+ * @param settings
+ */
 function toast (content, timer, callback, settings) {
     var options = {};
     var defaults = {

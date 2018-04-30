@@ -1,6 +1,15 @@
 import Dialog from '../dialog'
 import $ from 'jquery'
 
+/**
+ * 用户提醒
+ *
+ * @param content 提醒的内容
+ * @param button 可以传入空，是按钮的文字
+ * @param callback 回调
+ * @param timer 可以自动隐藏，可以不传入
+ * @param settings 可以不传入
+ */
 function alert (content, button, callback, timer, settings) {
     var options = {};
     var defaults = {

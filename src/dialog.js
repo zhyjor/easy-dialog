@@ -1,5 +1,8 @@
 import $ from 'jquery'
 
+/**
+ * 公用类，提供通用方法
+ */
 export default class Dialog {
     constructor (){
         let rnd = Math.random().toString().replace('.', '')

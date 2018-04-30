@@ -1,6 +1,14 @@
 import Dialog from '../dialog'
 import $ from 'jquery'
 
+/**
+ * 一个弹窗输入框
+ *
+ * @param content 这里的content是一个对象，包含bar,content.bar是title,content是传入值
+ * @param buttons
+ * @param callback
+ * @param settings
+ */
 function prompt (content, buttons, callback, settings) {
 
     var options = {};

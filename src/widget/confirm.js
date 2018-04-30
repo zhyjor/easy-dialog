@@ -1,6 +1,14 @@
 import Dialog from '../dialog'
 import $ from 'jquery'
 
+/**
+ * 用户确认
+ *
+ * @param content 提醒的内容
+ * @param buttons 可以传入空，是按钮的文字
+ * @param callback
+ * @param settings
+ */
 function confirm (content, buttons, callback, settings) {
     var options = {};
     var defaults = {

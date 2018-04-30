@@ -1,6 +1,13 @@
 import Dialog from '../dialog'
 import $ from 'jquery'
 
+/**
+ * 一般进入首页的弹窗图片显示，输入一个url
+ *
+ * @param content 需要显示的图片的url
+ * @param callback
+ * @param settings
+ */
 function imgad (content, callback, settings) {
     var options = {};
     var defaults = {

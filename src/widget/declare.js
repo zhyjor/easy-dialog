@@ -1,6 +1,14 @@
 import Dialog from '../dialog'
 import $ from 'jquery'
 
+/**
+ * 一些使用帮助或者使用许可的显示
+ *
+ * @param content 提醒的内容
+ * @param buttons
+ * @param callback
+ * @param settings
+ */
 function declare (content, buttons, callback, settings) {
     var options = {};
     var defaults = {
