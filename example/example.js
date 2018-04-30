@@ -1,4 +1,4 @@
-import easyDialog from '../src/index'
+import easyDialog from '../lib'
 
 var txt = ' 任何用户在使用搜狗网站（www.sogou.com）搜索引擎服务之前，均应仔细阅读本声明，用户可选择不使用搜狗网站搜索引擎服务，一旦使用，即被视为对本声明全部内容的认可和接受。\n' +
     '            <br>　　\n' +

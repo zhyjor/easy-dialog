@@ -1,10 +1,19 @@
 ## 简单介绍
-使用es6开发，提供了6种功能弹窗。接下来对每一个的使用具体分析。
+使用es6开发，提供了6种功能弹窗,接下来会对每一个的使用具体分析。
+
 ![](http://oankigr4l.bkt.clouddn.com/201804301931_871.png)
 
-可以直接通过标签引入，也可以使用npm，支持`import`。
-
 ## 基本使用
+
+可以直接通过标签引入，也可以使用npm，支持`import`。
+```js
+npm i easy-dialog
+import easyDialog from 'easy-dialog'
+
+或者
+<script src="../lib/index.js"></script>
+```
+
 ### declare
 一些使用帮助或者使用许可的显示
 ```js
