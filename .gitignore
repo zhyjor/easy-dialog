@@ -16,7 +16,6 @@ Thumbs.db
 *.swo
 *.pyc
 *.pyo
-build
 _site
 node_modules
 .cache
