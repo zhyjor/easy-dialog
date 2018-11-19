@@ -15,10 +15,10 @@ var txt = ' 任何用户在使用搜狗网站（www.sogou.com）搜索引擎服�
 
 var items = document.getElementsByClassName('item')
 items[0].addEventListener(
-    'click', function () {
-        easyDialog.declare({bar: "使用许可", content: txt}, [{'yes': '确认'}], function (type, input, c) {
+    'click', function() {
+        easyDialog.declare({ bar: "使用许可", content: txt }, [{ 'yes': '确认' }], function(type, input, c) {
             if (type == 'yes') {
-                easyDialog.toast('完成', 3000, function () {
+                easyDialog.toast('完成', 3000, function() {
                     console.log(c)
                 })
                 this.hide();
@@ -27,22 +27,22 @@ items[0].addEventListener(
     }
 )
 items[1].addEventListener(
-    'click', function () {
-        easyDialog.imgad('http://oankigr4l.bkt.clouddn.com/201804301921_288.png', function () {
+    'click', function() {
+        easyDialog.imgad('http://oankigr4l.bkt.clouddn.com/201804301921_288.png', function() {
             this.hide();
         })
     }
 )
 items[2].addEventListener(
-    'click', function () {
-        easyDialog.prompt({bar: "请输入小组名", content: '深圳分组'}, null, function (type, input, c) {
+    'click', function() {
+        easyDialog.prompt({ bar: "请输入小组名", content: '深圳分组' }, null, function(type, input, c) {
             if (type == 'yes') {
-                easyDialog.toast(input, 3000, function () {
+                easyDialog.toast(input, 3000, function() {
                     console.log(c)
                 })
                 this.hide();
             } else {
-                easyDialog.toast(input, 3000, function () {
+                easyDialog.toast(input, 3000, function() {
                     console.log(c)
                 })
                 this.hide();
@@ -51,25 +51,44 @@ items[2].addEventListener(
     }
 )
 items[3].addEventListener(
-    'click', function () {
-        easyDialog.toast('我是不好看的弹窗', 3000, function () {
+    'click', function() {
+        easyDialog.toast('我是不好看的弹窗', 3000, function() {
             console.log('toast隐藏')
         })
     }
 )
 items[4].addEventListener(
-    'click', function () {
-        easyDialog.alert('你确定？', true, function () {
+    'click', function() {
+        easyDialog.alert('你确定？', true, function() {
             console.log('确定了')
         })
     }
 )
 items[5].addEventListener(
-    'click', function () {
-        easyDialog.confirm('你可以不确定的！', null, function (type) {
+    'click', function() {
+        easyDialog.confirm('你可以不确定的！', null, function(type) {
                 easyDialog.toast('您点击了' + type, 2000);
                 this.hide();
             }
         )
+    }
+)
+
+items[6].addEventListener(
+    'click', function() {
+        easyDialog.pwinput({ bar: "请输入机器编号", inputLength: 10, isPwd: false }, null, function(type, input, c) {
+            if (type == 'yes') {
+                easyDialog.toast(input, 3000, function() {
+                    console.log(c)
+                })
+                this.hide();
+            } else {
+                easyDialog.toast(input, 3000, function() {
+                    console.log(c)
+                })
+                this.hide();
+            }
+
+        })
     }
 )

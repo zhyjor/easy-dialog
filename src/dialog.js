@@ -4,7 +4,7 @@ import $ from 'jquery'
  * 公用类，提供通用方法
  */
 export default class Dialog {
-    constructor (){
+    constructor() {
         let rnd = Math.random().toString().replace('.', '')
         this.id = 'dialog_' + rnd;
         this.settings = {};
@@ -15,12 +15,12 @@ export default class Dialog {
         this.mask = $();
     }
 
-    init(settings){
+    init(settings) {
         var _this = this;
         this.settings = $.extend({
             fixed: false //是否固定位置，
         }, this.settings, settings);
-        if(this.settings.mask) {
+        if (this.settings.mask) {
             this.mask = $('<div class="ui-dialog-mask"/>');
             $('body').append(this.mask);
         }
@@ -30,26 +30,27 @@ export default class Dialog {
         this.dialogContainer.css({
             'zIndex': zIndex
         });
-        if(this.settings.className) {
+        if (this.settings.className) {
             this.dialogContainer.addClass(this.settings.className);
         }
         ;
         this.mask.css({
             'zIndex': zIndex - 1
         });
-        if(this.settings.closeTpl) {
+        if (this.settings.closeTpl) {
             this.dialogContainer.append(this.settings.closeTpl);
         }
-        if(this.settings.title) {
+        if (this.settings.title) {
             this.dialogContainer.append(this.settings.titleTpl);
             this.settings.titleTpl.html(this.settings.title);
         }
         this.bindEvent();
-        if(this.settings.show) {
+        if (this.settings.show) {
             this.show();
         }
     }
-    touch(obj, fn){
+
+    touch(obj, fn) {
         var move;
         //在某些浏览器里，如微信旧版本的iphone5s会出现闪一下就消失
         // $(obj).on('click', click);
@@ -63,9 +64,9 @@ export default class Dialog {
             console.log(e)
         }).on('touchend', function(e) {
             e.preventDefault();
-            if(!move) {
+            if (!move) {
                 var returnvalue = fn.call(this, e, 'touch');
-                if(!returnvalue) {
+                if (!returnvalue) {
                     e.preventDefault();
                     e.stopPropagation();
                 }
@@ -74,7 +75,51 @@ export default class Dialog {
         });
     }
 
-    inputCheck(obj,shownull){
+    checkPWInput(obj, maxLength) {
+        if (obj.val().length < maxLength) {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    initPWInput(inputMaxLength) {
+        function hideKeyboard() {
+            // 输入完成隐藏键盘
+            document.activeElement.blur() // ios隐藏键盘
+            $('#code').blur() // android隐藏键盘
+        }
+
+        function getUlElem(obj, value) {
+            var liHtml = ''
+            for (var i = 0; i < inputMaxLength; i++) {
+                liHtml += '<li class="field-wrap">' +
+                    '<i class="char-field">' + (value[i] ? value[i] : "-") + '</i>' +
+                    '</li>'
+            }
+            obj.html(liHtml)
+        }
+
+        getUlElem($('#ulCode'), '')
+
+        $('#code').keyup(function(e) {
+            var valCurrent = e.target.value
+
+            var pattern = /^[0-9]+$/;
+
+            if (!pattern.test(valCurrent)) {
+                valCurrent = valCurrent.slice(0, -1)
+                $('#code').val(valCurrent)
+            }
+            getUlElem($('#ulCode'), valCurrent)
+
+            if (valCurrent.length >= inputMaxLength) {
+                hideKeyboard()
+            }
+        })
+    }
+
+    inputCheck(obj, shownull) {
         var pattern = /^[\u4e00-\u9fa5_a-zA-Z0-9_]+$/;
         var flag = true;
 
@@ -82,7 +127,7 @@ export default class Dialog {
             var inputVal = $(obj).val();
             var inputAlert = $('.ui-prompt-input-alert');
 
-            if(pattern.test(inputVal) || inputVal.length == 0) {
+            if (pattern.test(inputVal) || inputVal.length == 0) {
                 inputAlert.html('');
                 $('.ui-prompt-input-alert').show();
                 flag = true;
@@ -93,19 +138,19 @@ export default class Dialog {
                 return;
             }
 
-            if(inputVal.length > 10) {
+            if (inputVal.length > 10) {
                 inputAlert.html('输入长度达到上限');
                 $('.ui-prompt-input-alert').show();
                 flag = false;
                 return;
-            } else if(inputVal.length <= 0){
-                if(shownull){
+            } else if (inputVal.length <= 0) {
+                if (shownull) {
                     inputAlert.html('输入不能为空');
                     $('.ui-prompt-input-alert').show();
                     flag = false;
                     return;
                 }
-            }else {
+            } else {
                 inputAlert.html('');
                 $('.ui-prompt-input-alert').show();
                 flag = true;
@@ -119,9 +164,9 @@ export default class Dialog {
         return flag;
     }
 
-    bindEvent(){
+    bindEvent() {
         var _this = this;
-        if(this.settings.trigger) {
+        if (this.settings.trigger) {
             $(this.settings.trigger).click(function() {
                 _this.show()
             });
@@ -141,7 +186,7 @@ export default class Dialog {
             _this.setPosition();
         })
         $(document).keydown(function(e) {
-            if(e.keyCode === 27 && _this.showed) {
+            if (e.keyCode === 27 && _this.showed) {
                 _this.hide();
             }
         });
@@ -150,45 +195,45 @@ export default class Dialog {
         })
     }
 
-    dispose(){
+    dispose() {
         this.dialogContainer.remove();
         this.mask.remove();
         this.timer && clearInterval(this.timer);
     }
 
-    hide(){
+    hide() {
         var _this = this;
-        if(_this.settings.beforeHide) {
+        if (_this.settings.beforeHide) {
             _this.settings.beforeHide.call(_this, _this.dialogContainer);
         }
         this.showed = false;
         this.mask.hide();
         this.timer && clearInterval(this.timer);
-        if(this.settings.animate) {
+        if (this.settings.animate) {
             this.dialogContainer.removeClass('zoomIn').addClass("zoomOut");
             setTimeout(function() {
                 _this.dialogContainer.hide();
-                if(typeof _this.settings.target === "object") {
+                if (typeof _this.settings.target === "object") {
                     $('body').append(_this.dialogContainer.hide());
                 }
-                if(_this.settings.afterHide) {
+                if (_this.settings.afterHide) {
                     _this.settings.afterHide.call(_this, _this.dialogContainer);
                 }
             }, 500);
         } else {
             this.dialogContainer.hide();
-            if(typeof this.settings.target === "object") {
+            if (typeof this.settings.target === "object") {
                 $('body').append(this.dialogContainer)
             }
-            if(this.settings.afterHide) {
+            if (this.settings.afterHide) {
                 this.settings.afterHide.call(this, this.dialogContainer);
             }
         }
     }
 
-    show(){
-        if(typeof this.settings.target === "string") {
-            if(/^(\.|\#\w+)/gi.test(this.settings.target)) {
+    show() {
+        if (typeof this.settings.target === "string") {
+            if (/^(\.|\#\w+)/gi.test(this.settings.target)) {
                 this.dailogContent = $(this.settings.target);
             } else {
                 this.dailogContent = $('<div>' + this.settings.target + '</div>')
@@ -204,7 +249,7 @@ export default class Dialog {
             height: this.height,
             width: this.width
         });
-        if(this.settings.beforeShow) {
+        if (this.settings.beforeShow) {
             this.settings.beforeShow.call(this, this.dialogContainer);
         }
         this.showed = true;
@@ -214,26 +259,26 @@ export default class Dialog {
         var _this = this;
         // $.alert(this.settings.clientWidth)
         this.timer && clearInterval(this.timer);
-        if(this.settings.fixed) {
+        if (this.settings.fixed) {
             this.timer = setInterval(function() {
                 _this.setPosition();
             }, 1000);
         }
-        if(this.settings.animate) {
+        if (this.settings.animate) {
             this.dialogContainer.addClass('zoomIn').removeClass('zoomOut').addClass('animated');
         }
     }
 
-    setPosition(){
-        if(this.showed) {
+    setPosition() {
+        if (this.showed) {
             var _this = this;
             this.dialogContainer.show();
             this.height = this.settings.height;
             this.width = this.settings.width;
-            if(isNaN(this.height)) {
+            if (isNaN(this.height)) {
                 this.height = (this.dialogContainer.outerHeight && this.dialogContainer.outerHeight()) || this.dialogContainer.height();
             }
-            if(isNaN(this.width)) {
+            if (isNaN(this.width)) {
                 this.width = (this.dialogContainer.outerWidth && this.dialogContainer.outerWidth()) || this.dialogContainer.width();
             }
             var clientHeight = $(window).height();
@@ -246,13 +291,13 @@ export default class Dialog {
             top = Math.floor(Math.max(0, top));
             // console.log("ch:" + clientHeight, "cw:" + clientWidth, "left:" + left, "top:" + top, "w:" + this.width, "h:" + this.height);
             var position = 'absolute';
-            if(_this.settings.fixed) {
+            if (_this.settings.fixed) {
                 position = 'fixed';
             } else {
                 top = top + $(window).scrollTop();
             }
             var bottom = "auto";
-            if(_this.settings.position == "bottom") {
+            if (_this.settings.position == "bottom") {
                 top = "auto";
                 bottom = 0;
             }

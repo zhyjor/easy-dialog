@@ -3,7 +3,7 @@ let webpack = require('webpack')
 let pkg = require('../package.json')
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './index.js',
     output: {
         path: path.join(__dirname, '../lib'),
         filename: 'index.js',
