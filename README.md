@@ -1,5 +1,5 @@
 ## 简单介绍
-使用es6开发，提供了6种功能弹窗,接下来会对每一个的使用具体分析。
+使用es6开发，提供了7种功能弹窗,接下来会对每一个的使用具体分析。
 
 ![](http://oankigr4l.bkt.clouddn.com/201804301931_871.png)
 
@@ -90,6 +90,29 @@ easyDialog.confirm('你可以不确定的！', null, function (type) {
     this.hide();
 })
 ```
+### pwinput
+
+用户输入框，类似摩拜的机器码输入框，可以按照输入的不同类型，选择不同的样式
+
+```js
+
+easyDialog.pwinput({bar: "请输入机器编号", inputLength: 10, isPwd: false}, null, function (type, input, c) {
+    if (type == 'yes') {
+        easyDialog.toast(input, 3000, function () {
+            console.log(c)
+        })
+        this.hide();
+    } else {
+        easyDialog.toast(input, 3000, function () {
+            console.log(c)
+        })
+        this.hide();
+    }
+
+})
+```
+
+
 ![](http://oankigr4l.bkt.clouddn.com/201804301950_655.png)
 
 ## 总结
